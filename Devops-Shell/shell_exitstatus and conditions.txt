@@ -1,0 +1,119 @@
+shell-exit status
+----------------
+->when ever we are executing multiple commands in shell script if some error occur at a particular line
+then it will not terminate the program it will moves to next line it is a default nature of this language
+->for this we are using $? variable for store previous command status if it is $?=0 moving forward or if status 
+except 0 (i.e 1-127) we provide some message and we will terminate the program 
+
+-> $?=previous command status
+-> $0=current script file name
+-> $#=number of arguments
+-> $@=all arguments
+
+git install example
+-------------------
+#! /usr/bin/bash
+user=$(id -u)
+if [ $user -ne 0 ];
+then
+echo "you are not root user"
+echo "you don't have permission to perform these operation"
+exit 1
+fi
+yum install git -y
+
+if [ $? -ne 0 ];
+then
+echo "installing git is failure"
+exit 1
+else
+echo "git installation is success
+fi
+----------------------------------------------------------------------------
+shell - conditions
+------------------
+same like other scripts here also conditional statements are there
+
+1)if then else
+--------------
+syntax
+------
+if [ condition ];
+then
+//some logic
+else
+//some logic
+fi // it used to tell the ending of if statements
+
+if then elif then
+-----------------
+if [ condition ];
+then
+//some logic
+elif [ condition ];
+then
+//some logic
+else
+//some logic
+fi
+
+-gt=greter than
+-ge=greter than equal to
+-eq=euals to
+-lt=less than
+-le=less than eual to
+-ne=not euals to
+-o=OR
+-a=AND
+
+logical operators(&&,||)
+------------------------
+syntax
+-------
+if [ condition ] && or || if [ condition ];
+then
+else
+fi
+
+Loops in shell
+--------------
+for loop
+--------
+#! /usr/bin/bash
+for i in {1..10};
+do
+        echo "$i"
+done
+
+while loop
+----------
+#! /usr/bin/bash
+read data
+sum=0
+while [ $data -gt 0 ];
+do
+        t=$((data%10))
+        sum=$((sum*10+t))
+        data=$((data/10))
+done
+echo $sum
+
+some real time example
+----------------------
+#! /usr/bin/bash
+#one real time example
+# manifacture 3 mobiles named oneplus in that create 10 files
+#repeat 3 times edit 3 file write some text show text to the user
+#what he written
+read input
+while [ $input -gt 0 ]
+do
+	mkdir oneplus{1..$input}
+	cd oneplus
+	touch settings{1..10}.txt
+	input=$((input-1))
+done
+	vi settings3.txt
+
+	echo "here what you created"
+	cat settings3.txt

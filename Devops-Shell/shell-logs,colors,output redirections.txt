@@ -1,0 +1,79 @@
+->shell logs is used to maintain the shell files records
+->shell colors used maintain the the better user interface
+defining color variables
+========================
+----------------------
+		      |
+color	 |	number|
+-----	 |	------|
+B	 |	30    |
+R	 |	31    |
+G	 |	32    |
+Y	 |	33    |
+N	 |	0     |
+----------------------
+[B:BLACK R:RED G:GREEN Y:YELLOW N:NORMAL]
+red="\e[31m"
+br="\e[30m"
+...........etc
+eg:program
+==========
+b="\e[30m"
+r="\e[31m"
+g="\e[32m"
+y="\e[33m"
+n="\e[0m"
+echo -e $g vinay$b ram $r prem $y nagendra $n are logisoft employees
+
+logs program example
+====================
+#! /use/bin/bash 
+user=$(id -u)
+date=$(date +%Y-%m-%d)
+red="\e[31m"
+green="\e[32m"
+log="jenkin-install-$date.log"
+if [ $user -ne 0 ]; then
+	echo -e "$red you are not root user"
+	exit 1
+fi
+validate()
+{
+if [ $1 -ne 0 ];
+then 
+	echo -e "$red $2 .... failure"
+
+	exit 1
+else
+	echo -e "$green $2 success"
+fi
+}
+yum install -y &>>$log
+validate $? "updating yum"
+
+wget -0 /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo &>>$log
+validate $? "adding jenkins repo"
+
+wget --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key &>>$log
+validate $? "Jenkins-CI to enable installation from the package"
+
+yum upgrade &>>$log
+validate $? "updating yum"
+
+amazon-linux-extras install java-openjdk11 -y &>>$log
+validate $? "Install Java"
+
+yum install jenkins -y &>>$log
+validate $? "Install Jenkins"
+
+systemctl enable jenkins &>>$log
+validate $? "Enable the Jenkins service to start at boot"
+
+systemctl start jenkins &>>$log
+validate $? "Start Jenkins as a service"
+
+systemctl status jenkins &>>$log
+validate $? "checking the status of jenkins"
+ 
+

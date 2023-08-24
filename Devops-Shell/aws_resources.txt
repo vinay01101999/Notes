@@ -1,0 +1,25 @@
+########################
+#Author :vinay
+#date:
+#
+#version: v1
+#
+#this will report the aws resource usage
+
+#AWS s3
+#AWS EC2
+#AWS Lamda
+#AWS IAM Users
+
+#list the aws s3 bucket
+echo print the aws bucket list
+aws s3 ls
+#list the aws EC2
+echo print the ec2 users
+aws ec2 describe-instances
+#list the lamda
+echo list the lamda functions
+aws lamda list-functions
+#list the iam users
+echo list the iam users
+aws iam list-users

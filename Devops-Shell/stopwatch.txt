@@ -1,0 +1,23 @@
+s=0 m=0 h=0
+while [ $h -lt 24 ]
+do
+
+while [ $m -lt 59 ]
+do
+        if [ $m -eq 59 ]
+        then
+                m=0
+        fi
+
+s=0
+while [ $s -lt 60 ]
+do
+        echo Hour:Min:Sec:$h:$m:$s
+        sleep 1
+        clear
+        s=`expr $s + 1`
+done
+m=`expr $m + 1`
+done
+h=`expr $h + 1`
+done

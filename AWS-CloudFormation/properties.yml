@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  MyEC2Instance:
+    Type: 'AWS::EC2::Instance'
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-12345678  # Replace with your desired Amazon Machine Image (AMI) ID
+      KeyName: my-key-pair  # Replace with your EC2 key pair name
+      SecurityGroupIds:
+        - sg-12345678  # Replace with your Security Group ID(s)
+Parameters:
+  InstanceTypeParameter:
+    Description: Enter ec2 instance Value 
+    Type: String
+    Default: t2.micro
+    AllowedValues:
+      - t2.micro
+      - m1.small
+      - m1.large
+   Description: Enter t2.micro, m1.small, or m1.large. Default is t2.micro.

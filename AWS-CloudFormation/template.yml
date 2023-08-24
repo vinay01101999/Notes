@@ -1,0 +1,16 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: create a s3 bucket
+
+Parameters:
+  S3Bucketname: 
+     Description: Enter S3 instance Value 
+     Type: String
+     MinLength: 3
+     MaxLength: 10
+     AllowedPattern: "[A-Za-z]+"  
+Resources:
+  S3Bucket:
+    Type: 'AWS::S3::Bucket'
+    DeletionPolicy: Retain
+    Properties:
+      BucketName: !Ref 'S3Bucketname'

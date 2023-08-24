@@ -1,0 +1,27 @@
+->CloudFormation is an infrastructure automation platform for AWS that makes deploying 
+AWS resources at a much faster, more efficient, and more secure scale.
+->we can use CloudFormation to automate the configuration of workloads running on the 
+AWS services, such as the EC2 Compute Service, the S3 Storage Service, and the 
+IAM Service to configure access control.
+
+CFT Structure
+-------------
+- Version
+=========
+->Mentioning about version of CFT
+
+- Description
+- Metadata
+- Parameters
+============
+->specify the executing environment variables
+
+properties
+----------
+
+
+- Rules
+- Conditions
+- Mappings
+- Resources(*)
+

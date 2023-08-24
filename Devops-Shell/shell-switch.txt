@@ -1,0 +1,9 @@
+printf 'enter 1 hostname\nenter 2 for ipaddress\nenter 3 for date\nenter 4 for user
+read option
+case $option in
+1)hostname ;;
+2)hostname -i ;;
+3)date ;;
+4)whoami ;;
+*)echo please choose valid option
+esac

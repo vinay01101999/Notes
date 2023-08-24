@@ -1,0 +1,78 @@
+=>The kernel is a critical component of an operating system that acts as a bridge between 
+software applications and the underlyin
+=>in mobile phones and many other devices we are using linux kernel
+=>in windows OS we are using NT kernel
+=>in ios we are using Darvin kernel
+=>we can modify linux kernel for application purpose but other two OS not possible
+=>shell is a term in linux/unix which is an interface between user and operating system
+=>shell scripting is open source computer program designed to run  by unix/linux shell
+=>shell script is text file that contains a sequence of commands 
+
+=========================================================================================
+Variables
+=========
+=>shell scripting contains two types of variables
+1)syetem defined variables
+eq:cat,pwd,ls etc...
+
+2)user defined variables
+
+->declare inside script file as follows
+a=10
+b=20
+echo"$a";
+echo $(($a+$b)) or echo $((${a}+${b}))
+----------------------------------------
+echo enter a value
+read a
+echo enter b value
+read b
+c=`expr $a + $b`
+echo the addition values is : $c
+echo $((a+b))
+
+
+->taking the parameter from the command line
+a=$1
+b=$2
+sh filename.sh 10 15
+
+eg:progarm1
+-----------
+#! /usr/bin/bash --
+echo "hello"
+x=$1
+y=$2
+echo $((${x}+${y}))
+a=10
+b=20
+echo $(($a+$b))
+
+eg:program2
+-----------
+#! /usr/bin/bash --
+echo "enter your name"
+read hi
+echo "$hi"
+
+eg:program3
+-----------
+#! /usr/bin/bash --
+read -p "enter your name : " hi
+echo "$hi"
+eg:program4
+-----------
+#!/bin/bash
+echo "enter password"
+stty -echo # command is used to disable terminal echo, which means that the user's input will not be displayed
+read password
+stty echo #  is used to re-enable terminal echo, and an empty echo command is used to print a new line
+echo "your password is : $password"
+echo $(date)
+
+default variable: reply
+-----------------------
+read 
+echo $reply
+
+

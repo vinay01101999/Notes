@@ -1,0 +1,50 @@
+->function contains block statements which executes user logic
+->the main purpose of funtions is reusability of logic or code
+->functions are four types 
+1.named function
+2.anonymous function
+3.imediate invoked function expression
+4.arrow function
+
+syntax of named function
+========================
+function functionname()
+{
+//body
+}
+syntax of anonymous function
+============================
+function()
+{
+//body
+}
+=>note:we cann't direct access anonymous function either  store into a another variable like given below
+let som=function(a,b)
+{
+//body or logc
+}
+som(10,20);
+syntax of imediate invoked function expression
+==============================================
+(function(a,b)
+{
+  console.log(a**b)
+})(2,2);
+
+if function return any value as given below
+
+let a=(function(a,b)
+{
+  return a**b;
+})(2,2);
+console.log(a)
+syntax of arrow function
+========================
+let result=(x,y)=> x*y;
+console.log(result(10,20));
+if function returns nothing then given below
+var a=()=> console.log("hello");
+a();
+(or)
+var a=_=> console.log("hello");
+a();

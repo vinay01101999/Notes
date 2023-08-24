@@ -1,0 +1,240 @@
+GUI - Windows
+CLI - Linux, Centos, Ubuntu, Redhat
+
+Linux Dist
+  - Linux
+  - Redhat
+  - Centos
+  - Ubuntu
+
+  Linux                      Wind
+* Open Source(free & cust)  * its a paid version
+* CLI                       * GUI
+* MOS-MU                    * From wind 10 only MOS-MU
+
+=============================================
+date  --> to display date of today's
+cal   --> to display currrent month cal
+cal <mon> <year> --> to display particular month & year
+cal <year> --> to display all months from particular year
+ifconfig --> to display n/w properties
+hostname -i --> to display only ip address
+hostname    --> to display hostname of instance
+hostname -f -->  ""                ""
+
+whoami --> in which user profile you are in
+who    --> who logins into instance & from which ip address
+
+We have 2 types of users
+ - Admin / root user / Super user = #
+ - Normal users = $
+
+A User can be created in 2 ways
+-> User Created by user -> > 1000 (user id)
+-> User Created by script -> <= 1000
+
+sudo su <user name> -> to change user
+   sudo -> super user do
+   su   -> Switch user
+   sudo -i
+
+user details are available @ /etc/passwd
+Group details are available @ /etc/group
+
+cat /etc/passwd  --> to list / display user details 
+useradd <user name> --> to add / create user
+userdel <user name> --> to remove user 
+id <user name> --> to list particular user details
+
+cat /etc/group --> to list group details
+groupadd <group name> --> to add group
+groupdel <group name> --> to remove group
+groupmod -n <new name> <old name> --> to rename group
+
+* When we create user, it creates user & group with same names. And that group
+  will be primary group for that user
+* For users we have 1 Primary groups & n Secondary groups (We can change)
+* Every user will have home dir
+
+usermod -g <new grp name> <User name> --> to change primary group for user 
+usermod -G <grp name> <user name> -> to add/change Secondary group (limits to 1)
+gpasswd -a <user name> <group name> --> add user to group
+gpasswd -d <user name> <group name> --> remove user from group
+
+files & dir
+===========
+touch <file name> --> will create file
+touch <f1> <f2>   --> to create group for files with diff name
+touch <file name prefix>{1..10}.txt --> to create mass of files with same prefix
+vi <file name>    --> to create file & open file in editor
+vim <file name>   --> to create file & open file in editor
+After open file
+    press "i" --> to enter into insert/write mode
+            <write content>
+    press "esc" --> to exit write mode
+    :wq!  => writes content into file & closes editor
+    :w!   => writes content inti file
+    :q!   => Discards changes & closes editor
+rm <file name> --> to remove file
+rm -rf <file name> --> to remove forceful
+
+mkdir <dir name> --> to create dir
+mkdir <d n> <d n> --> to create more than 1 dir
+mkdir <dir prefix>{1..10}
+rmdir <dir name> --> to remove particular dir (empty dir)
+rm rf <dir name> --> to remove non empty dir (forcefull remove)
+mv <old name> <new name> --> to rename
+
+ls - listing commands
+----------------------
+default list -> 0-9a-z in access
+
+ls     -> lists files & dir in default order
+ls -r  -> lists files & dir in reverse order (z-a9-0)
+ls -s  -> lists files & dir with sizes in default order
+ls -t  -> lists files & dir in temporal (last created first)
+ls -a  -> lists all (normal file & system file) files & dir in default order 
+ls -l  -> lists files & dir in long list format (complete details)
+ls -ar
+ls -arls
+
+files which are started with "." -> system / hidden files
+files which are NOT started with "." -> Normal files
+
+======== Permissions ========
+read  -> r -> 4          user/owner -> u    + -> grant
+write -> w -> 2          group -> g         - -> revoke
+execute -> x -> 1        others -> o        = -> reassign
+no perm -> - -> 0
+
+chmod {whom}{op}{perm} <file name> --> permission change
+chmod u+x a.txt
+
+chown <new owner> <file name> --> to change owner for file
+chgrp <new group> <file name> --> to change group for file
+chown <owner>:<group> <file name> --> to change owner & group for file
+
+cd -> change dir
+----------------
+cd <dir name> --> to change from present to specified dir
+cd <d n>/<d n>/<d n> --> to change to particular path
+cd .. --> to change from present to its parent
+cd /  --> to change from any dir to "/"
+cd    --> to change from any dir to present user home dir
+cd ~  -->   "           ""                    ""
+cd -  --> to change to previous dir
+
+head, tail, grep, cat, echo, cp, mv, paste
+=====================================
+head <file name> -> to list 1st 10 lines from file
+head -n <number> <file name> -> to list given number of line from starting
+tail <file name> -> to list last 10 lines from file
+tail -n <number> <file name> -> to list given number of line from Last
+head -n <number> <file name> | tail -n <ul - ll + 1> -> tl list specific range of lines
+
+grep -e <search word> <file name> --> to search exact match
+grep -e <s w> -e <s w> <file name> --> to search exact match
+grep -e <search word> *.txt
+grep -e <search word> ab*
+grep -i <search word> <file name> --> case insensitive search
+grep -v <search wprd> <file name> --> Non matched lines
+
+
+>   -> first it checks for src file is available or not
+       yes
+         -> checks if dest file is available or not
+            yes -> overwrite existing content with src file content
+            no  -> creates dest file & copies content from src to dest file
+       no -> throws error & stops
+
+
+>>  -> first it checks for src file is available or not
+       yes
+         -> checks if dest file is available or not
+            yes -> Src file content will be appended to dest file content
+            no  -> creates dest file & copies content from src to dest file
+       no -> throws error & stops
+
+cp <src file> <dest file> --> to copy file
+mv <src file> <dest file> -> to move file
+
+cat <file name> --> to list content of file on console
+cat <src file> > <dest file>
+cat <src file> >> <dest file>
+
+echo "<content>" > <file name>
+echo "<content>" >> <file name> 
+
+paste <file1> <file2> -> to display content from more than 1 file on console
+paste <file1> <file2> > <file3>
+paste <file1> <file2> >> <file3>
+
+Compression & Extr
+==================
+zip -> 50%
+gun zip -> 75%
+bun zip -> 87.5%
+
+tar -cf <o/p>.tar <file name> => Zip
+tar -czf <o/p>.gz.tar <file name> => Gun Zip
+tar -cjf <o/p>.bz2.tar <file name> => Bun Zip
+
+tar -xf <o/p>.tar
+tar -xzf <o/p>.gz.tar
+tar -xjf <o/p>.bz2.tar
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,72 @@
+functions
+---------
+syntax
+------
+app()
+{
+}
+app //calling function
+
+eg:program1
+-----------
+#! /use/bin/bash --
+jenkins()
+{
+echo "hello"
+echo "scriptname : $0"
+echo "number of args : $#"
+echo "all of args : $@"
+}
+jenkins $1 $2
+
+Note:
+-----
+we can't use command line args directly inside the function 
+if we want use then at calling of function we had to pass the args as given bellow
+eg:function_name $1 $2 $3 .....
+
+function with real time example installing jenkins on aws ec2 sevrer under linux
+--------------------------------------------------------------------------------
+#! /use/bin/bash 
+user=$(id -u)
+if [ $user -ne 0 ]; then
+        echo "you are not root user"
+        exit 1
+fi
+validate()
+{
+if [ $1 -ne 0 ];
+then
+        echo "$2 .... failure"
+        exit 1
+else
+        echo "success"
+fi
+}
+yum install -y
+validate $? "updating yum"
+
+wget -0 /etc/yum.repos.d/jenkins.repo \
+    https://pkg.jenkins.io/redhat-stable/jenkins.repo
+validate $? "adding jenkins repo"
+
+rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+validate $? "Jenkins-CI to enable installation from the package"
+
+yum upgrade
+validate $? "updating yum"
+
+amazon-linux-extras install java-openjdk11 -y
+validate $? "Install Java"
+
+yum install jenkins -y
+validate $? "Install Jenkins"
+
+systemctl enable jenkins
+validate $? "Enable the Jenkins service to start at boot"
+
+systemctl start jenkins
+validate $? "Start Jenkins as a service"
+
+systemctl status jenkins
+validate $? "checking the status of jenkins"
