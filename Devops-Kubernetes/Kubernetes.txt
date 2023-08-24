@@ -1,0 +1,96 @@
+To create cluster, work node group we follow latest process/approach
+---------------------------------------------------------------------
+to create IAM policies  for cluster via CLI
+https://eksctl.io/ussageminimum-iam-policies/
+To create IAM policies  -->services  -->IAM -->Policies
+After login into AWS account go for IAM services
+1)click on the polices->choose json formatand paste the 4 policies
+2)give the policy name as mentioned in the documentation
+
+====================Deployment file==============================
+---
+apiVersion: apps/v1
+kind: Deployment  -->which specifies value
+metadata:         -->deployment name(on this name deployment will be created in cluster)
+  name: gitlab-1
+spec:  --> this spec is for deployment purpose
+  selector:
+    matchLabels:
+      app:gitlab-1
+  replicas: 0      --> htis defines no.of pods for this deployment
+  template:
+    metadata:
+      labels:
+        app: gitlab-1
+    spec:               --->htis spec iis for conatiner
+      conatiners:       --->Docker conatiner details
+        - name: gitlab-1  --->Conatiner name
+          image: gitlab/gitlab-ce  -->Image name(the image we point here is from docker hub or aws ec)
+          ports:
+            - containerPort: 80
+
+
+==================Service file==============================
+---
+apiversion: v1
+kind: Service ---> specifies the value
+metadata:
+  name: gitlab-1  -->service name
+spec:
+  selector:
+    app: gitlab-1
+  type: LoadBalancer  -->it's specifies service access type(loadbalaner or cluster ip and default value for type is clusterIp  if type is not specified in service it takes default value(clusterIp))
+  ports:              --> for accessing pod to external world
+  - protocol: TCP     --> type pod for accessing protocol
+    port: 80          --->external port number
+    targetPort: 80    -->internal port number or conatiner port number
+
+
+Note: kubernetes internally using port forwarding between internal and external for resolving same port number containing containers
+-->port forwarding port number is five digit number
+
+example
+------
+80->32509->80
+80->86878->8080
+
+
+setup and create for cluster
+----------------------------
+https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
+yum install wget -y
+wget https://github.com/weaveworks/eksctl/release/latest/download/eksctl_$(uname -s)_amd64.tar.gz
+tar -xzf eksctl......tar.gz
+cp eksctl /usr/bin
+cp eksctl /usr/sbin
+cp eksctl /usr/local/bin
+eksctl version
+
+https://eksctl.io/introduction/
+eksctl create cluster --name=cluster-1
+
+
+------------kubernetes client setup---------------
+Enabling kubectl repo
+
+cat <<EOF > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos//kubernetes-e17-86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+
+Installing kube client
+->Normal process
+yum-config-manager --enable kubernetes
+yum install kubectl -y
+
+->Distribution process
+curl -o kubectl https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/kubectl
+chmod +x ./kubectl
+mkdir -p $HOME/bin && cp ./kubectl $HOME/bin/kubectl && export PATH=$HOME/bin:$PATH
+kubectl version --short --client
+  

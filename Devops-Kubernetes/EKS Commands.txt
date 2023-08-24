@@ -1,0 +1,24 @@
+EKS Commands
+------------
+* kubectl get deployments --> to list available deployments
+* kubectl describe deployment <deployment name> --> to describe about deployment
+* kubectl edit deployment <deployment name>  --> to edit particular deployment
+* kubectl delete deployment <deployment name>  --> to remove deployment
+
+* kubectl get pods   --> to list available pods
+* kubectl describe pod <pod name> --> to describe about pod
+* kubectl delete pod <pod name>  --> to delete particular pod
+
+* kubectl get service  --> to list available services
+* kubectl describe service <service name>  -->to describe about service
+* kubectl edit service <service name>  --> to edit service 
+* kubectl delete service <service name>  --> to delete particular service
+
+* kubectl exec pod <pod name>   --> to login into pod
+
+* kubectl apply -f <deployment file>  --> to apply deploymentfile to cluster
+* kubectl apply -f <service file>  --> to apply servicefile to cluster
+
+sudo usermod -aG docker $USER && newgrp docker
+groups $USER
+minikube start --driver=docker
