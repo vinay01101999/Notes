@@ -1,0 +1,52 @@
+---
+- name: to install web service by check
+  hosts: all_slaves
+
+  tasks:
+    - name: to check web service path
+      stat:
+        path: /var/www/html
+      register: web_var
+
+    - name: to display web_var info
+      debug:
+        var: web_var
+   
+    - name: Web service intalled msg
+      debug:
+        msg: Web service is Installed. skip installation in next step
+      when: web_var.stat.exists == true
+
+    - name: web service NOT installed msg
+      debug:
+        msg: Web service is NOT installed. Install in next task
+      when: web_var.stat.exists == false
+
+    - name: Install web service, if not installed
+      yum:
+        name: httpd
+        state: installed
+      when: web_var.stat.exists == false
+
+    - name: Check path
+      stat: 
+        path: /var/www/html
+      register: web_var
+
+    - name: display info
+      debug:
+        var: web_var.stat.exists
+
+    - name: to change default page
+      copy:
+        src: index.html
+        dest: /var/www/html/
+        mode: 0777
+        owner: root
+        group: root
+
+    - name: to start web service
+      service:
+        name: httpd
+        state: started
+      when: web_var.stat.exists == true

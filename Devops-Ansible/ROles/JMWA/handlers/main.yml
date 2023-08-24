@@ -1,0 +1,12 @@
+---
+# handlers file for JMWA
+
+- name: restart webservice
+  service: 
+    name: "{{ web_name }}"
+    state: restarted
+
+- name: restart appservice
+  service:
+    name: "{{ app_name }}"
+    state: restarted

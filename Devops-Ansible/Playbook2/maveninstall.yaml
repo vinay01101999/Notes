@@ -1,0 +1,31 @@
+---
+- name: to install maven by check
+  hosts: all_slaves
+  become_method: sudo
+  become: yes
+  become_user: root
+  
+  tasks:
+    - name: check maven is installed or not
+      shell: mvn --version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+      register: mvn_var
+
+    - name: display info about installation
+      debug:
+        var: mvn_var
+
+    - name: Maven Installed info
+      debug:
+        msg: Maven installed, skip installation in next step
+      when: mvn_var.stdout != ""
+
+    - name: Maven is NOT Installed info
+      debug:
+        msg: Maven is NOT installed. installl in next task
+      when: mvn_var.stdout == ""
+
+    - name: Install Maven if not installed
+      yum:
+        name: maven
+        state: installed
+      when: mvn_var.stdout == ""

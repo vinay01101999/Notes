@@ -1,0 +1,6 @@
+---
+- name: to execute ROLE JMWA
+  hosts: tag_Name_dest1
+ 
+  roles:
+    - JMWA

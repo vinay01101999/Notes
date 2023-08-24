@@ -1,0 +1,87 @@
+Yet Another Markup Language (or) Yaml Ain't Markup Language
+==========================================================
+->it is data format and used to exchange the data
+->ymal uses indentation and colons to structure the data
+
+example
+-------
+name: vinay
+city:
+ - hyd
+ - pune
+ - goa
+
+yaml data types
+---------------
+1)scaler
+2)list
+3)dictionary
+
+Scalar data type:
+-----------------
+Scalar is a simple data type.The value of the scalar can be integer, float, Boolean, and string. 
+Scalar data types are classified into two data types:
+a.Numeric Data type
+------------------
+integer
+-------
+---  
+age: 12345  
+octalexample: 012345    
+hexaexample: 0x12d4  
+
+float
+-----
+a: 1.2456
+b: 25.hgf34568
+
+boolean
+-------
+->a boolean value can be True/False or Yes/No or On/Off
+
+boolenval1: True  
+booleanval2: False  
+fan: On  
+light: Off  
+
+b.String
+--------
+name: vinay
+job: "devloper"
+des: 'jhsdgfjh'
+bio: hgfj76876sdfjgh
+
+->to write multiline in single line is given bellow
+
+string:>
+	djfhgdfhghfgfh
+	dfjsdhgfjhdfjh
+	hfg jfjhfkjf	
+	(or)
+String:|
+        kehfjfhk
+	jehfgjhg
+	hgkuhgfg
+
+Lists
+=====
+fruits:
+- mango
+- bananna
+- apple
+
+in single block
+---------------
+fruits: [mango,bananna,apple]
+
+
+name: vinay
+city:
+ a: hyd
+ b: pune
+ c: goa
+job: devloper
+location:
+ - telagana
+ - andhrapradhesh
+ - karnataka

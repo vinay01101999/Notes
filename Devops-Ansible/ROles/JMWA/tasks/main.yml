@@ -1,0 +1,6 @@
+---
+# tasks file for JMWA
+- import_tasks: java_install.yaml
+- import_tasks: maven_install.yaml
+- import_tasks: web_install.yaml
+- import_tasks: app_install.yaml

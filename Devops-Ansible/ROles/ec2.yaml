@@ -1,0 +1,17 @@
+---
+- name: to launch EC2 instan in AWS cloud
+  hosts: localhost
+  connection: local
+
+  tasks:
+    - name: to launch Ec2 inst in AWS cloud
+      ec2:
+        region: ap-south-1
+        image: ami-021f7978361c18b01
+        instance_type: t2.micro
+        vpc_subnet_id: subnet-097a77b33486fde40
+        count: 1
+        assign_public_ip: yes
+        wait: yes
+        group_id: sg-04dc6da116f5442ad
+        key_name:  ansible

@@ -1,0 +1,174 @@
+* Features of Ansible
+--> Its is developed by using Python
+--> it uses SSH Communication for connecting to slaves
+--> it doest have any agent
+--> it follows push based mechanism
+
+AMI: ami-04c538740b8de05be
+     ami-071a31a7640172cd9
+
+Linux - Linux (ssh com)
+==============
+* Launch 2 EC2 inst with AMI - Linux
+* sys1 -> Src & sys2 -> Dest
+* From which user you want to connect -> switch to that user
+* Connect to source system & generate key pair => ssh-keygen
+* it generates 2 keys => id_rsa     -> private key
+                         id_rsa.pub -> public key
+* copy content of public key => cat <path>/id_rsa.pub
+* connect to dest system -> Switch to user to whom you want to connect
+* paste copied public key content in authorized_key file from new line
+
+============= Ansible Installation =======
+yum install java -y
+repo
+/etc/yum.repos.d/
+
+anible --version --> to check ansible version
+yum install ansible -y --> to install ansible 
+yum install epel-release -y (execute if any error for installation)
+
+In Ansible we have 2 types of slaves configuration
+- Static Slaves
+--> host file (Inventry file)
+--> /etc/ansible/hosts
+--> we are hardcoding slaves ip's
+--> [all_slaves]
+    slave1 ip -> 1.2.3.4 -> 1.2.3.5
+    slave2 ip
+
+- Dynamic Slave config
+-> In Dynamic slave config, Ansible pulls latest slaves info from AWS cloud
+-> if you slaves ip's are not static (Dynamic)
+-> if your App Env is Configured with Auto Scaling & Load Balancer
+
+-----------------------------
+S#1 From Master, we have to connect to AWS Cloud via AWS CLI -> Follow AWS CLI from "AWS CLI.txt"
+S#2 Donwload EC2.py & EC2.ini files from web, which helps for pulling infra info from AWS cloud
+      ec2.ini link
+         wget https://raw.githubusercontent.com/ansible/ansible/stable-1.9/plugins/inventory/ec2.ini
+      ec2.py link
+         wget https://raw.githubusercontent.com/ansible/ansible/stable-1.9/plugins/inventory/ec2.py
+S#3 EC2.py file depends/call/executes EC2.ini, that's why we have give info to EC2.py about where EC2.ini file ia available
+S#4 give execute permissions for both EC2.py & EC2.ini file
+S#5 to pull AWS infa info -> ./<path of EC2.py file> => cross check
+S#6 To install boto package --> pip install boto
+S#7 to tell to ansible where slaves info --> point inventry to ec2.py file
+
+
+Ad-HOC Commands
+---------------
+ansible <group name> -m ping
+ansible <group name> -m yum -a "name=java state=installed"
+ansible <group name> -a "yum install java -y"
+ansible <group name> -a "java -version"
+
+
+ansible <group name> -m yum -a "name=maven state=installed"
+ansible <group name> -a "yum install maven -y"
+ansible <group name> -a "mvn --version"
+
+ansible <group name> -m yum -a "name=httpd state=installed"
+ansible <group name> -m yum -a "name=httpd state=started"
+ansible <group name> -m yum -a "name=httpd state=stopped"
+
+ansible <group name> -a "yum install httpd -y"
+ansible <group name> -a "systemctl status httpd"
+ansible <group name> -a "systemctl start httpd"
+ansible <group name> -a "systemctl stopped httpd"
+
+ansible <group name> -m yum -a "name=tomcat state=installed"
+ansible <group name> -m yum -a "name=tomcat state=started"
+ansible <group name> -m yum -a "name=tomcat state=stopped"
+
+ansible <group name> -a "yum install tomcat -y"
+ansible <group name> -a "systemctl status tomcat"
+ansible <group name> -a "systemctl start tomcat"
+ansible <group name> -a "systemctl stopped tomcat"
+
+ansible <group name> -m copy -a "src=<> dest=<> mode=0777 group=root owner=root"
+ansible <group name> -m file -a "path=/usr/share/tomcat/webapps/ROOT/ owner=root group=root mode=0777 state=directory"
+ansible <group name> -m file -a "path=/var/www/html/index.html state=absent"
+
+============== Ansible Playbooks ============
+Playbooks are written in YAML Scripting
+in YAML, indendation is strictly followed
+In Ansible playbooks, each Ad-HOC command is written as 1 task
+A playbook can have 1 or more tasks
+ansible <group name> -m file -a "path=/usr/share/tomcat/webapps/ROOT/ owner=root group=root mode=0777 state=directory"
+
+- name: this task is for creating ROOT dir in tomcat
+  file:
+    path:
+    owner:
+    group:
+    mode:
+    state:
+
+ansible-playbook <playbook name> --synatx-check --> to check syntax error in playbook
+ansible-playbook <playbook name> --> to run playbook in slaves
+
+TO create Role in Ansible
+ansible-galaxy init --force --offline <role name>
+yum install tree -y
+
+
+
+
+
+A
+ B 
+  C
+   D
+
+tree JMWA
+
+JMWA
+├── defaults
+│   └── main.yml
+├── files  ---> files are placed at here which are send to slaves
+├── handlers ---> for if any tasks is executed it affected to other tasks and tells to run the task 
+│   └── main.yml
+├── meta
+│   └── main.yml
+├── README.md
+├── tasks   --->for defining tasks only
+│   └── main.yml
+├── templates --> if we have any templates define here
+├── tests
+│   ├── inventory
+│   └── test.yml
+└── vars    --->for variables declaration
+    └── main.yml
+
+
+
+
+
+
+
+
+
+
+
+
+--->when we executed any role always it executes main.yml file only
+---->if we want execute other files in any directory we have to call or import those files in main.yml file
+-------------------------- configure AWS CLI ------------------------------
+check python version(for AWS EC2 instance,python is preinstalled(2.7))
+# python --version -->to check pyhton version
+https://linuxize.com/post/ -->how to install-python-3-on-centos
+
+pip tool download for linux
+
+# curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py(21.x version, required python 3.4)
+			(or)
+# curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py(20.x version, required python 2.7)
+
+# python get-pip.py --> pip tool installation
+# pip --version
+# aws --version
+# pip install awscli
+
+Access Key : AKIA6EYZFKNYXZPA3CGO
+Secrete access key : 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

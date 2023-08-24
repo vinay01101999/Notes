@@ -1,0 +1,6 @@
+---
+# vars file for JMWA
+java_name: java
+maven_name: maven
+web_name: httpd
+app_name: tomcat

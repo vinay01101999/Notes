@@ -1,0 +1,55 @@
+---
+- name: this play book have installation of tools in slaves
+  hosts: all_slaves
+
+  tasks:
+    - name: this task is for installation of java
+      yum:
+        name: java
+        state: installed
+    - name: this task is for installation of maven
+      yum:
+        name: maven
+        state: installed
+    - name: this task is for installation of web server
+      yum:
+        name: httpd
+        state: installed
+    - name: this task is for starting web service
+      service:
+        name: httpd
+        state: started
+    - name: this task is for changing default page of web service
+      copy:
+        src: index.html
+        dest: /var/www/html/
+        mode: 0777
+        group: root
+        owner: root
+    
+    - name: this is for installation tomcat
+      yum:
+        name: tomcat
+        state: installed
+
+    - name: to start tomcat services
+      service:
+        name: tomcat
+        state: started
+
+    - name: creating a root directory
+      file:
+        path: /usr/share/tomcat/webapps/ROOT/
+        state: directory
+        mode: 0777
+        group: root
+        owner: root
+
+    - name: copy index.html page
+      copy:
+        src: tomcat_index.html
+        dest: /usr/share/tomcat/webapps/ROOT/index.html
+        group: root
+        owner: root
+        mode: 0777
+    

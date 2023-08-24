@@ -1,0 +1,37 @@
+---
+- name: to install java by check
+  hosts: all_slaves
+
+  tasks:
+    - name: to check java is installed or not
+      shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+      register: java_var
+
+    - name: display status of installation
+      debug:
+        var: java_var
+
+    - name: Java installed Infor msg
+      debug:
+        msg: Java is Installed, skip installation in next task
+      when: java_var.stdout != ""
+      
+    - name: Java NOT Installed Infor msg
+      debug: 
+        msg: Java is NOT Installed, Install in next step
+      when: java_var.stdout == ""
+
+    - name: To install Java
+      yum:
+        name: java
+        state: installed
+      when: java_var.stdout == ""
+
+    - name: to check java is installed or not
+      shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'
+      register: java_var
+
+    - name: display version details
+      debug:
+        var: java_var.stdout
+

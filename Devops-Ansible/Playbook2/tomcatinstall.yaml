@@ -1,0 +1,59 @@
+---
+- name: to install tomcat by check
+  hosts: all_slaves
+  become_method: sudo
+  become: yes
+  become_user: root
+  
+  tasks:
+    - name: check tomcat is installed or not
+      stat:
+        path: /usr/share/tomcat
+      register: app_var
+
+    - name: display info about installation
+      debug:
+        var: app_var
+
+    - name: Tomcat Installed info display
+      debug:
+        msg: Tomcat is Installed. Skip installation in next Task
+      when: app_var.stat.exists == true
+
+    - name: Tomcat NOT installled info display
+      debug:
+        msg: Tomcat is NOT installed. Install in next task
+      when: app_var.stat.exists == false
+
+    - name: Install tomcat service
+      yum: 
+        name: tomcat
+        state: installed
+      when: app_var.stat.exists == false
+
+    - name: check tomcat installation status
+      stat:
+        path: /usr/share/tomcat
+      register: app_var
+
+    - name: Start Tomcat service
+      service:
+        name: tomcat
+        state: started
+      when: app_var.stat.exists == true
+
+    - name: to create root dir
+      file:
+        path: /usr/share//tomcat/webapps/ROOT/
+        owner: root
+        group: root
+        mode: 0777
+        state: directory
+
+    - name: copy index.html page
+      copy:
+        src: index.html
+        dest: /usr/share/tomcat/webapps/ROOT/index.html
+        mode: 0777
+        owner: root
+        group: root

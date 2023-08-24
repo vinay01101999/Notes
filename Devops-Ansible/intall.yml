@@ -1,0 +1,44 @@
+---
+- name: this playbook is for installation of tools
+  hosts: slave
+  tasks:
+    - name: to install tomcat service
+      yum:
+        name: tomcat
+        state: installed
+    - name: to start tomcat service
+      service:
+        name: tomcat
+        state: started
+
+    - name: create root dir
+      file:
+        path: /usr/share/tomcat/webapps/ROOT/
+        state: directory
+        mode: 0777
+        owner: root
+        group: root
+
+    - name: copy index.html page
+      copy:
+        src: homepage.html
+        dest: /usr/share/tomcat/webapps/ROOT/index.html
+        mode: 0777
+        owner: root
+        group: root
+---
+- name: this is to start the tomcat server
+  hosts: slave
+  tasks:
+    - name: this task is to start the tomcat server
+      service:
+        name: tomcat
+        state: started
+---
+- name: this paly to stop tomcat server
+  hosts: slave
+  tasks:
+    - name: to stop tomcat server
+      service:
+        name: tomcat
+        state: stopped
