@@ -1,0 +1,21 @@
+=>In previously we have one application one server,let's consider as it manage upto 1000 trafffic
+=>when more traffic is increase the application will stop working so to solve this problem
+VmWare is introduce virtualization
+
+virtualization
+==============
+->In virtualization we are difining more OS and with respect to os we have more servers so if any traffic is increase
+it will forward to next server
+
+
+
+Disadvantages
+=============
+->cost
+->maintenance
+->scalability
+->optimisation
+->performance
+->it does not run many applications with one os
+
+->to solve this problem we are using docker container

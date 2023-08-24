@@ -1,0 +1,5 @@
+ctrl+a --->comes first line
+ctrl+e --->comes end of the command
+ctrl+k --->removes cursor after text
+ctrl+u --->removes total command
+we can execute multiple commands by using " ; "  

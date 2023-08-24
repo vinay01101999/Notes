@@ -1,0 +1,50 @@
+Note 
+=====
+* Maven is designed & developed by using Java
+* Tomcat is designed & developed by using java
+* to access web service via browser ==> hit public ip in browser
+* web service runs on http protocol which uses port 80
+* to change default page of web service @ /var/www/html/index.html
+* to access tomcat service => <public ip>:<port> & hit in browser
+* tomcat runs on port 8080 (default port)
+* when we access tomcat service, it looks for path /usr/share/tomcat/webapps/ROOT/index.html
+  but, when we install tomcat we get only /usr/share/tomcat/webapps
+* create ROOT dir & create index.html page
+
+=========== Normal Process of Installation ========
+
+yum --> Package manager
+
+yum install <package name> --> installing package
+
+java -version -> to check java version
+yum install java -y --> to install Java
+
+mvn --version --> to check maven version
+yum install maven -y --> to install maven
+
+yum install <service name> -y --> to install service
+systemctl status <service name> --> to check status of service
+systemctl start <service name>  --> to start Service
+systemctl stop <service name>   --> to stop service
+systemctl restart <service name>  --> to restart Service
+systemctl enable <service name>  --> to enable Service
+
+web service --> apache -> httpd
+app Service --> tomcat -> tomcat
+
+yum install httpd -y
+systemctl status httpd
+systemctl start httpd
+systemctl stop httpd
+systemctl restart httpd
+systemctl enable httpd
+
+yum install tomcat -y
+systemctl status tomcat
+systemctl start tomcat
+systemctl stop tomcat
+systemctl restart tomcat
+systemctl enable tomcat
+
+=========== Distribution Process of Installation ========
